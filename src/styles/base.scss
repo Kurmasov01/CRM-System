@@ -1,15 +1,31 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui;
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #1f2639;
+  background-color: $white;
 }
 
 body {
   margin: 0;
   padding: 0;
+}
+
+input {
+  font-family: system-ui;
+  font-weight: 400;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  outline: 0 none;
+  appearance: none;
+}
+
+button {
+  font-family: system-ui;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .section {
@@ -26,4 +42,11 @@ body {
   margin-left: auto;
   padding-right: 20px;
   padding-left: 20px;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
 }
