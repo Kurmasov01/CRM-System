@@ -64,6 +64,20 @@ function App() {
     console.log(response);
   }
 
+  async function changeTodoStatus(id: number, currentStatus: boolean) {
+    const todo: TodoRequest = {};
+    todo.isDone = !currentStatus
+
+    const response = await fetch(`https://easydev.club/api/v1/todos/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(todo)
+    });
+    const resData: Todo = await response.json();
+
+    setToDos(prev => prev.map(todo => todo.id === id ? resData : todo));
+    console.log(response);
+  }
+
   function editToDo(id: number) {
     setToDos((prev) =>
       prev.map((todo) =>
@@ -81,7 +95,7 @@ function App() {
     <>
       <div className="layout">
         <AddTodo handleAddtodo={handleAddtodo} errorText={errorText} />
-        <ToDoList deleteTodo={deleteTodo} editToDo={editToDo} toDos={toDos} />
+        <ToDoList changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} editToDo={editToDo} toDos={toDos} />
       </div>
     </>
   );

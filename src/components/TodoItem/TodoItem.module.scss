@@ -21,6 +21,11 @@
   background-color: $blue;
   border: none;
   color: $white;
+
+  &:disabled {
+    background-color: $graySecond;
+    cursor: default;
+  }
 }
 .activeBtn {
   background-color: $green;
@@ -36,8 +41,76 @@
   background-color: unset;
 }
 
+.todoLeft {
+  display: flex;
+  gap: 20px;
+}
+
 .todoInfo {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.listItemChecked {
+  background-color: $greenSecond;
+}
+
+.titleChecked {
+  text-decoration: line-through;
+}
+
+.checkbox {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  flex-shrink: 0;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.checkboxMark {
+  width: 22px;
+  height: 22px;
+
+  border: 2px solid $gray;
+  border-radius: 6px;
+
+  position: relative;
+}
+
+.checkboxMark::after {
+  content: "";
+
+  position: absolute;
+
+  left: 6px;
+  top: 2px;
+
+  width: 6px;
+  height: 12px;
+
+  border: solid $white;
+  border-width: 0 2px 2px 0;
+}
+
+.checkbox input:checked + .checkboxMark {
+  background: $green;
+  border-color: $green;
+}
+
+.checkbox input:checked + .checkboxMark::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.checkbox:hover .checkboxMark {
+  border-color: $green;
 }
