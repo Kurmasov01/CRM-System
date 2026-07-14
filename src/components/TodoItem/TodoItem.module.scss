@@ -1,0 +1,43 @@
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  border: solid 1px $gray;
+  border-radius: 5px;
+
+  margin-bottom: 10px;
+
+  padding: 10px 16px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+.todoBtn {
+  padding: 6px 8px;
+  border-radius: 5px;
+  background-color: $blue;
+  border: none;
+  color: $white;
+}
+.activeBtn {
+  background-color: $green;
+}
+.deleteBtn {
+  background-color: $red;
+}
+.todoTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: $black;
+  border: none;
+  background-color: unset;
+}
+
+.todoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
