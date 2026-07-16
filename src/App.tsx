@@ -66,15 +66,15 @@ function App() {
 
   async function changeTodoStatus(id: number, currentStatus: boolean) {
     const todo: TodoRequest = {};
-    todo.isDone = !currentStatus
+    todo.isDone = !currentStatus;
 
     const response = await fetch(`https://easydev.club/api/v1/todos/${id}`, {
       method: "PUT",
-      body: JSON.stringify(todo)
+      body: JSON.stringify(todo),
     });
     const resData: Todo = await response.json();
 
-    setToDos(prev => prev.map(todo => todo.id === id ? resData : todo));
+    setToDos((prev) => prev.map((todo) => (todo.id === id ? resData : todo)));
     console.log(response);
   }
 
@@ -84,18 +84,53 @@ function App() {
         todo.id === id
           ? {
               ...todo,
-              isEditing: !todo.isEditing,
+              isEditing: true,
             }
           : todo,
       ),
     );
   }
 
+  function cancelEdit(id: number) {
+    setToDos((prev) =>
+      prev.map((todo) =>
+        todo.id === id
+          ? {
+              ...todo,
+              isEditing: false,
+            }
+          : todo,
+      ),
+    );
+  }
+
+  async function saveTodo(id: number, todoTitle: string) {
+    const todo: TodoRequest = {};
+    todo.title = todoTitle;
+
+    const response = await fetch(`https://easydev.club/api/v1/todos/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(todo),
+    });
+
+    const resData: Todo = await response.json();
+    if (response.ok && resData) {
+      cancelEdit(id);
+    }
+  }
+
   return (
     <>
       <div className="layout">
         <AddTodo handleAddtodo={handleAddtodo} errorText={errorText} />
-        <ToDoList changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} editToDo={editToDo} toDos={toDos} />
+        <ToDoList
+          changeTodoStatus={changeTodoStatus}
+          deleteTodo={deleteTodo}
+          editToDo={editToDo}
+          saveTodo={saveTodo}
+          cancelEdit={cancelEdit}
+          toDos={toDos}
+        />
       </div>
     </>
   );

@@ -12,6 +12,8 @@ const ToDoList: React.FC<{
   deleteTodo: (id: number) => void;
   editToDo: (id: number) => void;
   changeTodoStatus: (id: number, currentStatus: boolean) => void;
+  saveTodo: (id: number, todoTitle: string) => void;
+  cancelEdit: (id: number) => void;
 }> = (props) => {
   return (
     <>
@@ -23,6 +25,8 @@ const ToDoList: React.FC<{
                 deleteTodo={props.deleteTodo}
                 editToDo={props.editToDo}
                 changeTodoStatus={props.changeTodoStatus}
+                saveTodo={props.saveTodo}
+                cancelEdit={props.cancelEdit}
                 key={todo.id}
                 todo={todo}
               />
