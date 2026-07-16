@@ -2,15 +2,29 @@ import styles from "@/components/TodoItem/TodoItem.module.scss";
 import type { Todo } from "@/models/Models";
 import { useState } from "react";
 
+import { validateTodoTitle } from "@/App";
+
 const TodoItem: React.FC<{
   todo: Todo;
   deleteTodo: (id: number) => void;
   editToDo: (id: number) => void;
   changeTodoStatus: (id: number, currentStatus: boolean) => void;
-  saveTodo: (id: number, todoTitle: string) => void;
+  handleSaveTodo: (id: number, todoTitle: string) => void;
   cancelEdit: (id: number) => void;
 }> = (props) => {
   const [title, setTitle] = useState(props.todo.title);
+  const [errorText, setErrorText] = useState("");
+
+  function onSaveTodo(id: number, title: string) {
+    const error = validateTodoTitle(title);
+    if (error) {
+      setErrorText(error);
+      return;
+    }
+
+    setErrorText("");
+    props.handleSaveTodo(id, title);
+  }
 
   return (
     <li
@@ -35,6 +49,11 @@ const TodoItem: React.FC<{
             onChange={(event) => setTitle(event.currentTarget.value)}
             disabled={!props.todo.isEditing}
           ></input>
+          {errorText !== "" ? (
+            <span className={styles.error}>{errorText}</span>
+          ) : (
+            ""
+          )}
           <span className={styles.todoDate}>{props.todo.created}</span>
         </div>
       </div>
@@ -44,7 +63,7 @@ const TodoItem: React.FC<{
           <>
             <button
               className={`${styles.todoBtn} ${props.todo.isEditing ? styles.activeBtn : ""}`}
-              onClick={() => props.saveTodo(props.todo.id, title)}
+              onClick={() => onSaveTodo(props.todo.id, title)}
               disabled={props.todo.isDone}
               data-is-save-btn={props.todo.isEditing}
             >

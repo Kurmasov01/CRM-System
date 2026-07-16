@@ -26,24 +26,9 @@ function App() {
   }, []);
 
   async function handleAddtodo(todoTitle: string | undefined) {
-    const todo: TodoRequest = {};
-    todoTitle = todoTitle?.trim();
-
-    if (!todoTitle) {
-      setErrorText("Это поле не может быть пустым");
-      return;
-    }
-
-    switch (true) {
-      case todoTitle?.length < 2:
-        return setErrorText("Минимальная длина текста 2 символа");
-      case todoTitle?.length > 64:
-        return setErrorText("Максимальная длина текста 64 символа");
-      case todoTitle?.length < 65 && todoTitle?.length > 1:
-        setErrorText("");
-    }
-
-    todo.title = todoTitle;
+    const todo: TodoRequest = {
+      title: todoTitle!.trim(),
+    };
     const response = await fetch(`https://easydev.club/api/v1/todos`, {
       method: "POST",
       body: JSON.stringify(todo),
@@ -53,7 +38,6 @@ function App() {
     if (response.ok && resData) {
       setToDos((prev) => [...prev, resData]);
     }
-    console.log(resData);
   }
 
   async function deleteTodo(id: number) {
@@ -61,7 +45,6 @@ function App() {
       method: "DELETE",
     });
     setToDos((prev) => prev.filter((todo) => todo.id !== id));
-    console.log(response);
   }
 
   async function changeTodoStatus(id: number, currentStatus: boolean) {
@@ -75,7 +58,6 @@ function App() {
     const resData: Todo = await response.json();
 
     setToDos((prev) => prev.map((todo) => (todo.id === id ? resData : todo)));
-    console.log(response);
   }
 
   function editToDo(id: number) {
@@ -104,9 +86,19 @@ function App() {
     );
   }
 
-  async function saveTodo(id: number, todoTitle: string) {
-    const todo: TodoRequest = {};
-    todo.title = todoTitle;
+  async function handleSaveTodo(id: number, todoTitle: string) {
+    const error = validateTodoTitle(todoTitle);
+
+    if (error) {
+      setErrorText(error);
+      return;
+    }
+
+    setErrorText("");
+
+    const todo: TodoRequest = {
+      title: todoTitle,
+    };
 
     const response = await fetch(`https://easydev.club/api/v1/todos/${id}`, {
       method: "PUT",
@@ -127,13 +119,31 @@ function App() {
           changeTodoStatus={changeTodoStatus}
           deleteTodo={deleteTodo}
           editToDo={editToDo}
-          saveTodo={saveTodo}
+          handleSaveTodo={handleSaveTodo}
           cancelEdit={cancelEdit}
           toDos={toDos}
         />
       </div>
     </>
   );
+}
+
+export function validateTodoTitle(title: string | undefined): string {
+  const value = title?.trim();
+
+  if (!value) {
+    return "Это поле не может быть пустым";
+  }
+
+  if (value.length < 2) {
+    return "Минимальная длина текста 2 символа";
+  }
+
+  if (value.length > 64) {
+    return "Максимальная длина текста 64 символа";
+  }
+
+  return "";
 }
 
 export default App;

@@ -1,12 +1,26 @@
 import styles from "@/components/AddTodo/AddTodo.module.scss";
-import React from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
+
+import { validateTodoTitle } from "@/App";
 
 const Addtodo: React.FC<{
   handleAddtodo: (todoTitle: string | undefined) => {};
   errorText: string;
 }> = (props) => {
+  const [errorText, setErrorText] = useState("");
   const todoInput = useRef<HTMLInputElement>(null);
+
+  function addTodo(title: string | undefined) {
+    const error = validateTodoTitle(title);
+    if (error) {
+      setErrorText(error);
+      return;
+    }
+
+    setErrorText("");
+    props.handleAddtodo(title);
+  }
 
   return (
     <>
@@ -21,13 +35,13 @@ const Addtodo: React.FC<{
           />
           <button
             className={styles.btn}
-            onClick={() => props.handleAddtodo(todoInput.current?.value)}
+            onClick={() => addTodo(todoInput.current?.value)}
           >
             Добавить
           </button>
         </div>
-        {props.errorText !== "" ? (
-          <span className={styles.error}>{props.errorText}</span>
+        {errorText !== "" ? (
+          <span className={styles.error}>{errorText}</span>
         ) : (
           ""
         )}
