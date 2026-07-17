@@ -14,6 +14,7 @@ const TodoItem: React.FC<{
 }> = (props) => {
   const [title, setTitle] = useState(props.todo.title);
   const [errorText, setErrorText] = useState("");
+  const originalTitle:string = props.todo.title
 
   function onSaveTodo(id: number, title: string) {
     const error = validateTodoTitle(title);
@@ -24,6 +25,12 @@ const TodoItem: React.FC<{
 
     setErrorText("");
     props.handleSaveTodo(id, title);
+  }
+
+  function onCancelEdit(id: number, originalTitle: string) {
+    console.log(originalTitle)
+    setTitle(originalTitle)
+    props.cancelEdit(id);
   }
 
   return (
@@ -71,7 +78,7 @@ const TodoItem: React.FC<{
             </button>
             <button
               className={`${styles.todoBtn} ${styles.cancelBtn}`}
-              onClick={() => props.cancelEdit(props.todo.id)}
+              onClick={() => onCancelEdit(props.todo.id, originalTitle)}
             >
               Отмена
             </button>

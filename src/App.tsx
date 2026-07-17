@@ -14,6 +14,7 @@ function App() {
   const [toDos, setToDos] = useState<Todo[]>([]);
   const [toDoInfo, setToDoInfo] = useState<TodoInfo>();
   const [errorText, setErrorText] = useState("");
+  const [activeFilter, setActiveFilter] = useState("all");
 
   useEffect(() => {
     async function fetchTodos() {
@@ -30,12 +31,19 @@ function App() {
     fetchTodos();
   }, []);
 
+  function onFilterChange(filter: string) {
+    setActiveFilter(filter);
+    fetchTodosInfo(filter);
+  }
+
   async function fetchTodosInfo(status: string) {
-    const response = await fetch(`https://easydev.club/api/v1/todos?filter=${status}`);
+    const response = await fetch(
+      `https://easydev.club/api/v1/todos?filter=${status}`,
+    );
     const resData: MetaResponse<Todo, TodoInfo> = await response.json();
     setToDos(resData.data);
     setToDoInfo(resData.info);
-    console.log(resData.info)
+    console.log(resData.info);
   }
 
   async function handleAddtodo(todoTitle: string | undefined) {
@@ -49,7 +57,7 @@ function App() {
     const resData: Todo = await response.json();
 
     if (response.ok && resData) {
-      setToDos((prev) => [...prev, resData]);
+      fetchTodosInfo(activeFilter)
     }
   }
 
@@ -57,7 +65,7 @@ function App() {
     const response = await fetch(`https://easydev.club/api/v1/todos/${id}`, {
       method: "DELETE",
     });
-    setToDos((prev) => prev.filter((todo) => todo.id !== id));
+    fetchTodosInfo(activeFilter)
   }
 
   async function changeTodoStatus(id: number, currentStatus: boolean) {
@@ -70,7 +78,7 @@ function App() {
     });
     const resData: Todo = await response.json();
 
-    setToDos((prev) => prev.map((todo) => (todo.id === id ? resData : todo)));
+    fetchTodosInfo(activeFilter)
   }
 
   function editToDo(id: number) {
@@ -128,7 +136,7 @@ function App() {
     <>
       <div className="layout">
         <AddTodo handleAddtodo={handleAddtodo} errorText={errorText} />
-        <TodoFilter fetchTodosInfo={fetchTodosInfo} toDoInfo = {toDoInfo} />
+        <TodoFilter onFilterChange={onFilterChange} activeFilter={activeFilter} fetchTodosInfo={fetchTodosInfo} toDoInfo={toDoInfo} />
         <ToDoList
           changeTodoStatus={changeTodoStatus}
           deleteTodo={deleteTodo}
