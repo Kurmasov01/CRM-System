@@ -1,12 +1,11 @@
 import styles from "@/components/TodoFilter/ToDoList.module.scss";
-import type { Todo, MetaResponse, TodoInfo } from "@/models/Models";
-import { useState } from "react";
+import type { TodoInfo } from "@/models/Models";
 
 const TodoFilter: React.FC<{
   fetchTodosInfo: (status: string) => void;
   onFilterChange: (filter: string) => void;
   toDoInfo?: TodoInfo;
-  activeFilter: string
+  activeFilter: string;
 }> = (props) => {
   return (
     <div className={styles.filters}>
