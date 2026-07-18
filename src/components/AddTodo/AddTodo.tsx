@@ -20,6 +20,9 @@ const Addtodo: React.FC<{
 
     setErrorText("");
     props.handleAddtodo(title);
+    if (todoInput.current) {
+      todoInput.current.value = "";
+    }
   }
 
   return (

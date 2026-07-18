@@ -14,7 +14,9 @@ const TodoItem: React.FC<{
 }> = (props) => {
   const [title, setTitle] = useState(props.todo.title);
   const [errorText, setErrorText] = useState("");
-  const originalTitle:string = props.todo.title
+  console.log(props.todo);
+  let originalTitle: string = props.todo.title;
+  console.log(originalTitle);
 
   function onSaveTodo(id: number, title: string) {
     const error = validateTodoTitle(title);
@@ -28,8 +30,8 @@ const TodoItem: React.FC<{
   }
 
   function onCancelEdit(id: number, originalTitle: string) {
-    console.log(originalTitle)
-    setTitle(originalTitle)
+    setTitle(originalTitle);
+    console.log(originalTitle);
     props.cancelEdit(id);
   }
 

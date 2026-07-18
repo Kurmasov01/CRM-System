@@ -128,6 +128,7 @@ function App() {
     const resData: Todo = await response.json();
     if (response.ok && resData) {
       cancelEdit(id);
+      fetchTodosInfo(activeFilter);
     }
   }
 
