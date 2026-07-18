@@ -2,7 +2,7 @@ import styles from "@/components/AddTodo/AddTodo.module.scss";
 import React, { useState } from "react";
 import { useRef } from "react";
 
-import { validateTodoTitle } from "@/App";
+import { validateTodoTitle } from "@/pages/TodoPage";
 
 const Addtodo: React.FC<{
   handleAddtodo: (todoTitle: string | undefined) => {};

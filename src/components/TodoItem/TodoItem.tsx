@@ -2,7 +2,7 @@ import styles from "@/components/TodoItem/TodoItem.module.scss";
 import type { Todo } from "@/models/Models";
 import { useState } from "react";
 
-import { validateTodoTitle } from "@/App";
+import { validateTodoTitle } from "@/pages/TodoPage";
 
 const TodoItem: React.FC<{
   todo: Todo;
