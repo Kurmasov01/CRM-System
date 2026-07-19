@@ -4,11 +4,7 @@ import type { Todo } from "@/models/Models";
 
 const ToDoList: React.FC<{
   toDos: Todo[];
-  deleteTodo: (id: number) => void;
-  editToDo: (id: number) => void;
-  changeTodoStatus: (id: number, currentStatus: boolean) => void;
-  handleSaveTodo: (id: number, todoTitle: string) => void;
-  cancelEdit: (id: number) => void;
+  updateTodos: () => void;
 }> = (props) => {
   return (
     <>
@@ -18,11 +14,7 @@ const ToDoList: React.FC<{
             <ul className={styles.list}>
               {props.toDos.map((todo) => (
                 <TodoItem
-                  deleteTodo={props.deleteTodo}
-                  editToDo={props.editToDo}
-                  changeTodoStatus={props.changeTodoStatus}
-                  handleSaveTodo={props.handleSaveTodo}
-                  cancelEdit={props.cancelEdit}
+                  updateTodos={props.updateTodos}
                   key={todo.id}
                   todo={todo}
                 />

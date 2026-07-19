@@ -1,38 +1,62 @@
 import styles from "@/components/TodoItem/TodoItem.module.scss";
-import type { Todo } from "@/models/Models";
+import type { Todo, TodoRequest } from "@/models/Models";
 import { useState } from "react";
+import { fetchDeleteTodo, fetchEditTodo } from "@/api/FetchApi";
 
-import { validateTodoTitle } from "@/pages/TodoPage";
+import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 
 const TodoItem: React.FC<{
   todo: Todo;
-  deleteTodo: (id: number) => void;
-  editToDo: (id: number) => void;
-  changeTodoStatus: (id: number, currentStatus: boolean) => void;
-  handleSaveTodo: (id: number, todoTitle: string) => void;
-  cancelEdit: (id: number) => void;
+  updateTodos: () => void;
 }> = (props) => {
   const [title, setTitle] = useState(props.todo.title);
   const [errorText, setErrorText] = useState("");
-  console.log(props.todo);
-  let originalTitle: string = props.todo.title;
-  console.log(originalTitle);
+  const [isEditing, setIsEditing] = useState(false);
 
-  function onSaveTodo(id: number, title: string) {
-    const error = validateTodoTitle(title);
+  const originalTitle: string = props.todo.title;
+
+  async function handleSaveTodo(id: number, todoTitle: string) {
+    const error = validateTodoTitle(todoTitle);
+
     if (error) {
       setErrorText(error);
       return;
     }
 
     setErrorText("");
-    props.handleSaveTodo(id, title);
+
+    const todo: TodoRequest = {
+      title: todoTitle,
+    };
+
+    const response = await fetchEditTodo(id, todo);
+    if (response) {
+      setIsEditing(false);
+      props.updateTodos();
+    }
   }
 
-  function onCancelEdit(id: number, originalTitle: string) {
+  async function handleDeleteTodo(id: number) {
+    const response = await fetchDeleteTodo(id);
+
+    if (response) {
+      props.updateTodos();
+    }
+  }
+
+  async function changeTodoStatus(id: number, currentStatus: boolean) {
+    const todo: TodoRequest = {};
+    todo.isDone = !currentStatus;
+
+    const response = await fetchEditTodo(id, todo);
+    if (response) {
+      props.updateTodos();
+    }
+  }
+
+  function onCancelEdit() {
+    setIsEditing(false);
     setTitle(originalTitle);
-    console.log(originalTitle);
-    props.cancelEdit(id);
   }
 
   return (
@@ -44,9 +68,7 @@ const TodoItem: React.FC<{
         <label className={styles.checkbox}>
           <input
             type="checkbox"
-            onChange={() =>
-              props.changeTodoStatus(props.todo.id, props.todo.isDone)
-            }
+            onChange={() => changeTodoStatus(props.todo.id, props.todo.isDone)}
             checked={props.todo.isDone}
           />
           <span className={styles.checkboxMark}></span>
@@ -56,7 +78,7 @@ const TodoItem: React.FC<{
             className={`${styles.todoTitle} ${props.todo.isDone ? styles.titleChecked : ""}`}
             value={title}
             onChange={(event) => setTitle(event.currentTarget.value)}
-            disabled={!props.todo.isEditing}
+            disabled={!isEditing}
           ></input>
           {errorText !== "" ? (
             <span className={styles.error}>{errorText}</span>
@@ -68,29 +90,31 @@ const TodoItem: React.FC<{
       </div>
 
       <div className={styles.btns}>
-        {props.todo.isEditing ? (
+        {isEditing ? (
           <>
             <button
-              className={`${styles.todoBtn} ${props.todo.isEditing ? styles.activeBtn : ""}`}
-              onClick={() => onSaveTodo(props.todo.id, title)}
+              className={`${styles.todoBtn} ${isEditing ? styles.activeBtn : ""}`}
+              onClick={() => handleSaveTodo(props.todo.id, title)}
               disabled={props.todo.isDone}
-              data-is-save-btn={props.todo.isEditing}
+              data-is-save-btn={isEditing}
             >
               Сохранить
             </button>
             <button
               className={`${styles.todoBtn} ${styles.cancelBtn}`}
-              onClick={() => onCancelEdit(props.todo.id, originalTitle)}
+              onClick={() => onCancelEdit()}
             >
               Отмена
             </button>
           </>
         ) : (
           <button
-            className={`${styles.todoBtn} ${props.todo.isEditing ? styles.activeBtn : ""}`}
-            onClick={() => props.editToDo(props.todo.id)}
+            className={`${styles.todoBtn} ${isEditing ? styles.activeBtn : ""}`}
+            onClick={() => {
+              setIsEditing(true);
+            }}
             disabled={props.todo.isDone}
-            data-is-save-btn={props.todo.isEditing}
+            data-is-save-btn={isEditing}
           >
             Редактировать
           </button>
@@ -99,7 +123,7 @@ const TodoItem: React.FC<{
         <button
           className={`${styles.todoBtn} ${styles.deleteBtn}`}
           onClick={() => {
-            props.deleteTodo(props.todo.id);
+            handleDeleteTodo(props.todo.id);
           }}
         >
           Удалить

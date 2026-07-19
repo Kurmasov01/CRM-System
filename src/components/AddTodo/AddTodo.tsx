@@ -1,27 +1,31 @@
 import styles from "@/components/AddTodo/AddTodo.module.scss";
+import { fetchAddtodo } from "@/api/FetchApi";
 import React, { useState } from "react";
 import { useRef } from "react";
 
-import { validateTodoTitle } from "@/pages/TodoPage";
+import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 
-const Addtodo: React.FC<{
-  handleAddtodo: (todoTitle: string | undefined) => {};
-  errorText: string;
-}> = (props) => {
+const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
   const [errorText, setErrorText] = useState("");
   const todoInput = useRef<HTMLInputElement>(null);
 
-  function addTodo(title: string | undefined) {
-    const error = validateTodoTitle(title);
+  async function handleAddtodo(todoTitle: string | undefined) {
+    todoTitle = todoTitle?.trim();
+    const error = validateTodoTitle(todoTitle);
     if (error) {
       setErrorText(error);
       return;
     }
 
     setErrorText("");
-    props.handleAddtodo(title);
-    if (todoInput.current) {
-      todoInput.current.value = "";
+
+    if (todoTitle && todoInput.current) {
+      const response = await fetchAddtodo(todoTitle);
+
+      if (response) {
+        props.updateTodos();
+        todoInput.current.value = "";
+      }
     }
   }
 
@@ -38,7 +42,7 @@ const Addtodo: React.FC<{
           />
           <button
             className={styles.btn}
-            onClick={() => addTodo(todoInput.current?.value)}
+            onClick={() => handleAddtodo(todoInput.current?.value)}
           >
             Добавить
           </button>

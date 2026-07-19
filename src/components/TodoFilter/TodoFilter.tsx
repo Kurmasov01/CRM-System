@@ -2,17 +2,23 @@ import styles from "@/components/TodoFilter/ToDoList.module.scss";
 import type { TodoInfo } from "@/models/Models";
 
 const TodoFilter: React.FC<{
-  fetchTodosInfo: (status: string) => void;
-  onFilterChange: (filter: string) => void;
-  toDoInfo?: TodoInfo;
+  updateTodos: (activeFilter: string) => void;
+  setActiveFilter: (filter: string) => void
   activeFilter: string;
+  toDoInfo?: TodoInfo;
 }> = (props) => {
+
+  function onFilterChange(filter: string) {
+    props.setActiveFilter(filter);
+    props.updateTodos(filter);
+  }
+
   return (
     <div className={styles.filters}>
       <button
         className={`${styles.filter} ${props.activeFilter === "all" ? styles.active : ""}`}
         onClick={() => {
-          props.onFilterChange("all");
+          onFilterChange("all");
         }}
       >
         Все ({props.toDoInfo?.all})
@@ -21,7 +27,7 @@ const TodoFilter: React.FC<{
       <button
         className={`${styles.filter} ${props.activeFilter === "inWork" ? styles.active : ""}`}
         onClick={() => {
-          props.onFilterChange("inWork");
+          onFilterChange("inWork");
         }}
       >
         В работе ({props.toDoInfo?.inWork})
@@ -30,7 +36,7 @@ const TodoFilter: React.FC<{
       <button
         className={`${styles.filter} ${props.activeFilter === "completed" ? styles.active : ""}`}
         onClick={() => {
-          props.onFilterChange("completed");
+          onFilterChange("completed");
         }}
       >
         Сделано ({props.toDoInfo?.completed})

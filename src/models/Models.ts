@@ -8,7 +8,6 @@ export interface Todo {
   title: string;
   created: string;
   isDone: boolean;
-  isEditing: boolean;
 }
 
 export interface TodoInfo {
