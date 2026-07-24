@@ -47,7 +47,7 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
             Добавить
           </button>
         </div>
-        {errorText ?? <span className={styles.error}>{errorText}</span>}
+        {errorText && <span className={styles.error}>{errorText}</span>}
       </section>
     </>
   );
