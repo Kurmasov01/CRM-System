@@ -1,4 +1,4 @@
-import styles from "@/components/TodoFilter/ToDoList.module.scss";
+import styles from "@/components/TodoFilter/ToDoFilter.module.scss";
 import type { TodoInfo } from "@/models/Models";
 
 const TodoFilter: React.FC<{
