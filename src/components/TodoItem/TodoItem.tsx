@@ -96,7 +96,6 @@ const TodoItem: React.FC<{
               className={`${styles.todoBtn} ${isEditing ? styles.activeBtn : ""}`}
               onClick={() => handleSaveTodo(props.todo.id, title)}
               disabled={props.todo.isDone}
-              data-is-save-btn={isEditing}
             >
               Сохранить
             </button>
@@ -114,7 +113,6 @@ const TodoItem: React.FC<{
               setIsEditing(true);
             }}
             disabled={props.todo.isDone}
-            data-is-save-btn={isEditing}
           >
             Редактировать
           </button>
