@@ -1,7 +1,7 @@
 .listItem {
   display: flex;
   justify-content: space-between;
-  border: solid 1px $gray;
+  border: solid 1px $secondary_color_1;
   border-radius: 5px;
 
   margin-bottom: 10px;
@@ -18,28 +18,28 @@
 .todoBtn {
   padding: 6px 8px;
   border-radius: 5px;
-  background-color: $blue;
+  background-color: $primary_color_3;
   border: none;
-  color: $white;
+  color: $primary_color_1;
 
   &:disabled {
-    background-color: $graySecond;
+    background-color: $secondary_color_2;
     cursor: default;
   }
 }
 .activeBtn {
-  background-color: $green;
+  background-color: $primary_color_4;
 }
 .deleteBtn {
-  background-color: $red;
+  background-color: $primary_color_2;
 }
 .cancelBtn {
-  background-color: $blue;
+  background-color: $primary_color_3;
 }
 .todoTitle {
   font-size: 20px;
   font-weight: 600;
-  color: $black;
+  color: $primary_color_5;
   border: none;
   background-color: unset;
 }
@@ -56,7 +56,7 @@
 }
 
 .listItemChecked {
-  background-color: $greenSecond;
+  background-color: $secondary_color_3;
 }
 
 .titleChecked {
@@ -84,7 +84,7 @@
   width: 22px;
   height: 22px;
 
-  border: 2px solid $gray;
+  border: 2px solid $secondary_color_1;
   border-radius: 6px;
 
   position: relative;
@@ -101,13 +101,13 @@
   width: 6px;
   height: 12px;
 
-  border: solid $white;
+  border: solid $primary_color_1;
   border-width: 0 2px 2px 0;
 }
 
 .checkbox input:checked + .checkboxMark {
-  background: $green;
-  border-color: $green;
+  background: $primary_color_4;
+  border-color: $primary_color_4;
 }
 
 .checkbox input:checked + .checkboxMark::after {
@@ -115,9 +115,9 @@
 }
 
 .checkbox:hover .checkboxMark {
-  border-color: $green;
+  border-color: $primary_color_4;
 }
 
 .error {
-  color: $red;
+  color: $primary_color_2;
 }

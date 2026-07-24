@@ -5,14 +5,14 @@
 .btn {
   padding: 10px 16px;
   border-radius: 5px;
-  background-color: $blue;
+  background-color: $primary_color_3;
   border: none;
-  color: $white;
+  color: $primary_color_1;
   margin-left: 40px;
 }
 
 .input {
-  border: solid 1px $gray;
+  border: solid 1px $secondary_color_1;
   border-radius: 5px;
   
   padding: 10px 16px;
@@ -20,5 +20,5 @@
 }
 
 .error {
-  color: $red;
+  color: $primary_color_2;
 }

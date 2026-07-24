@@ -6,7 +6,7 @@
   margin-bottom: 20px;
   padding: 4px;
 
-  background-color: $gray;
+  background-color: $secondary_color_1;
   border-radius: 5px;
 
   width: fit-content
@@ -23,12 +23,12 @@
 
   background-color: transparent;
 
-  color: $black;
+  color: $primary_color_5;
 
   cursor: pointer;
 }
 
 .active {
   background-color: #fff;
-  color: $blue;
+  color: $primary_color_3;
 }
