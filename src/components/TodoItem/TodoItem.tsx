@@ -13,8 +13,6 @@ const TodoItem: React.FC<{
   const [errorText, setErrorText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const originalTitle: string = props.todo.title;
-
   async function handleSaveTodo(id: number, todoTitle: string) {
     const error = validateTodoTitle(todoTitle);
 
@@ -56,7 +54,7 @@ const TodoItem: React.FC<{
 
   function onCancelEdit() {
     setIsEditing(false);
-    setTitle(originalTitle);
+    setTitle(props.todo.title);
   }
 
   return (
