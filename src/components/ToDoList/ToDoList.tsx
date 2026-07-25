@@ -1,17 +1,17 @@
-import styles from "@/components/ToDoList/ToDoList.module.scss";
+import styles from "@/components/TodoList/TodoList.module.scss";
 import TodoItem from "@/components/TodoItem/TodoItem";
 import type { Todo } from "@/models/Models";
 
-const ToDoList: React.FC<{
-  toDos: Todo[];
+const TodoList: React.FC<{
+  todos: Todo[];
   updateTodos: () => void;
 }> = (props) => {
   return (
     <div className="section">
       <div className={styles.wrapper}>
-        {props.toDos.length !== 0 ? (
+        {props.todos.length !== 0 ? (
           <ul className={styles.list}>
-            {props.toDos.map((todo) => (
+            {props.todos.map((todo) => (
               <TodoItem
                 updateTodos={props.updateTodos}
                 key={todo.id}
@@ -29,4 +29,4 @@ const ToDoList: React.FC<{
   );
 };
 
-export default ToDoList;
+export default TodoList;

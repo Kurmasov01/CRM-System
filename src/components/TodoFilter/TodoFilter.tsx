@@ -1,11 +1,11 @@
-import styles from "@/components/TodoFilter/ToDoFilter.module.scss";
+import styles from "@/components/TodoFilter/TodoFilter.module.scss";
 import type { TodoInfo } from "@/models/Models";
 
 const TodoFilter: React.FC<{
   updateTodos: (activeFilter: string) => void;
   setActiveFilter: (filter: string) => void
   activeFilter: string;
-  toDoInfo?: TodoInfo;
+  todoInfo?: TodoInfo;
 }> = (props) => {
 
   function onFilterChange(filter: string) {
@@ -21,7 +21,7 @@ const TodoFilter: React.FC<{
           onFilterChange("all");
         }}
       >
-        Все ({props.toDoInfo?.all})
+        Все ({props.todoInfo?.all})
       </button>
 
       <button
@@ -30,7 +30,7 @@ const TodoFilter: React.FC<{
           onFilterChange("inWork");
         }}
       >
-        В работе ({props.toDoInfo?.inWork})
+        В работе ({props.todoInfo?.inWork})
       </button>
 
       <button
@@ -39,7 +39,7 @@ const TodoFilter: React.FC<{
           onFilterChange("completed");
         }}
       >
-        Сделано ({props.toDoInfo?.completed})
+        Сделано ({props.todoInfo?.completed})
       </button>
     </div>
   );

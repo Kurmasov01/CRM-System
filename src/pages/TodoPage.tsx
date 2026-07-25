@@ -1,5 +1,5 @@
 import AddTodo from "@/components/AddTodo/AddTodo";
-import ToDoList from "@/components/ToDoList/ToDoList";
+import TodoList from "@/components/TodoList/TodoList";
 import TodoFilter from "@/components/TodoFilter/TodoFilter";
 import { getTodos } from "@/api/FetchApi";
 import { useState } from "react";
@@ -7,8 +7,8 @@ import type { Todo, TodoInfo, MetaResponse } from "@/models/Models";
 import { useEffect } from "react";
 
 function TodoPage() {
-  const [toDos, setToDos] = useState<Todo[]>([]);
-  const [toDoInfo, setToDoInfo] = useState<TodoInfo>();
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todoInfo, setTodoInfo] = useState<TodoInfo>();
   const [activeFilter, setActiveFilter] = useState("all");
 
   useEffect(() => {
@@ -19,8 +19,8 @@ function TodoPage() {
     let queryFilter: string = filter ? filter : activeFilter;
     try {
       const resData: MetaResponse<Todo, TodoInfo> = await getTodos(queryFilter);
-      setToDos(resData.data);
-      setToDoInfo(resData.info);
+      setTodos(resData.data);
+      setTodoInfo(resData.info);
     } catch (error) {
       alert("Не удалось загрузить задачи, ошибка: " + error);
     }
@@ -34,9 +34,9 @@ function TodoPage() {
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
         updateTodos={onGetTodos}
-        toDoInfo={toDoInfo}
+        todoInfo={todoInfo}
       />
-      <ToDoList updateTodos={onGetTodos} toDos={toDos} />
+      <TodoList updateTodos={onGetTodos} todos={todos} />
     </section>
   );
 }
