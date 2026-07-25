@@ -1,5 +1,5 @@
 import styles from "@/components/AddTodo/AddTodo.module.scss";
-import { fetchAddtodo } from "@/api/FetchApi";
+import { addTodo } from "@/api/FetchApi";
 import React, { useState } from "react";
 import { useRef } from "react";
 
@@ -20,11 +20,14 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
     setErrorText("");
 
     if (todoTitle && todoInput.current) {
-      const response = await fetchAddtodo(todoTitle);
-
-      if (response) {
-        props.updateTodos();
-        todoInput.current.value = "";
+      try {
+        const response = await addTodo(todoTitle);
+        if (response) {
+          props.updateTodos();
+          todoInput.current.value = "";
+        }
+      } catch (error) {
+        alert("Не удалось создать задачу, ошибка: " + error);
       }
     }
   }

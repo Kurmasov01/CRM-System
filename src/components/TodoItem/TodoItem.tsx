@@ -1,7 +1,7 @@
 import styles from "@/components/TodoItem/TodoItem.module.scss";
 import type { Todo, TodoRequest } from "@/models/Models";
 import { useState } from "react";
-import { fetchDeleteTodo, fetchEditTodo } from "@/api/FetchApi";
+import { deleteTodo, editTodo } from "@/api/FetchApi";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 
@@ -26,29 +26,39 @@ const TodoItem: React.FC<{
     const todo: TodoRequest = {
       title: todoTitle,
     };
-
-    const response = await fetchEditTodo(id, todo);
-    if (response) {
-      setIsEditing(false);
-      props.updateTodos();
+    try {
+      const response = await editTodo(id, todo);
+      if (response) {
+        setIsEditing(false);
+        props.updateTodos();
+      }
+    } catch (error) {
+      alert("Не удалось сохранить задачу, ошибка: " + error);
     }
   }
 
   async function handleDeleteTodo(id: number) {
-    const response = await fetchDeleteTodo(id);
+    try {
+      const response = await deleteTodo(id);
 
-    if (response) {
-      props.updateTodos();
+      if (response) {
+        props.updateTodos();
+      }
+    } catch (error) {
+      alert("Не удалось удалить задачу, ошибка: " + error);
     }
   }
 
   async function changeTodoStatus(id: number, currentStatus: boolean) {
     const todo: TodoRequest = {};
     todo.isDone = !currentStatus;
-
-    const response = await fetchEditTodo(id, todo);
-    if (response) {
-      props.updateTodos();
+    try {
+      const response = await editTodo(id, todo);
+      if (response) {
+        props.updateTodos();
+      }
+    } catch (error) {
+      alert("Не удалось обновить статус задачи, ошибка: " + error);
     }
   }
 
