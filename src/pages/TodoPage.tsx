@@ -27,7 +27,8 @@ function TodoPage() {
   }
 
   return (
-    <div className="layout">
+    <section className="layout">
+      <h1>Мои задачи</h1>
       <AddTodo updateTodos={onGetTodos} />
       <TodoFilter
         activeFilter={activeFilter}
@@ -36,7 +37,7 @@ function TodoPage() {
         toDoInfo={toDoInfo}
       />
       <ToDoList updateTodos={onGetTodos} toDos={toDos} />
-    </div>
+    </section>
   );
 }
 

@@ -33,9 +33,8 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
   }
 
   return (
-    <section className="section">
+    <div className="section">
       <div className={styles.wrapper}>
-        <h1 className={styles.heading}>Мои задачи</h1>
         <input
           className={styles.input}
           type="text"
@@ -50,7 +49,7 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
         </button>
       </div>
       {errorText && <span className={styles.error}>{errorText}</span>}
-    </section>
+    </div>
   );
 };
 
