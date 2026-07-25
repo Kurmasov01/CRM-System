@@ -9,6 +9,11 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
   const [errorText, setErrorText] = useState("");
   const todoInput = useRef<HTMLInputElement>(null);
 
+  function handleFormSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    handleAddtodo(todoInput.current?.value);
+  }
+
   async function handleAddtodo(todoTitle: string | undefined) {
     const trimedTitle = todoTitle?.trim();
     const error = validateTodoTitle(trimedTitle);
@@ -34,20 +39,20 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
 
   return (
     <div className="section">
-      <div className={styles.wrapper}>
+      <form
+        className={styles.wrapper}
+        onSubmit={(event) => handleFormSubmit(event)}
+      >
         <input
           className={styles.input}
           type="text"
           placeholder="Введите название"
           ref={todoInput}
         />
-        <button
-          className={styles.btn}
-          onClick={() => handleAddtodo(todoInput.current?.value)}
-        >
+        <button type="submit" className={styles.btn}>
           Добавить
         </button>
-      </div>
+      </form>
       {errorText && <span className={styles.error}>{errorText}</span>}
     </div>
   );
