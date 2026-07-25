@@ -7,27 +7,25 @@ const ToDoList: React.FC<{
   updateTodos: () => void;
 }> = (props) => {
   return (
-    <>
-      <div className="section">
-        <div className={styles.wrapper}>
-          {props.toDos.length !== 0 ? (
-            <ul className={styles.list}>
-              {props.toDos.map((todo) => (
-                <TodoItem
-                  updateTodos={props.updateTodos}
-                  key={todo.id}
-                  todo={todo}
-                />
-              ))}
-            </ul>
-          ) : (
-            <div className={styles.noTodosText}>
-              <span>Текущих задач нет</span>
-            </div>
-          )}
-        </div>
+    <div className="section">
+      <div className={styles.wrapper}>
+        {props.toDos.length !== 0 ? (
+          <ul className={styles.list}>
+            {props.toDos.map((todo) => (
+              <TodoItem
+                updateTodos={props.updateTodos}
+                key={todo.id}
+                todo={todo}
+              />
+            ))}
+          </ul>
+        ) : (
+          <div className={styles.noTodosText}>
+            <span>Текущих задач нет</span>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

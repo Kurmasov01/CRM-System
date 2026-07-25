@@ -16,25 +16,23 @@ function TodoPage() {
   }, []);
 
   async function getTodos(filter?: string) {
-    let queryFilter: string = filter ? filter : activeFilter
+    let queryFilter: string = filter ? filter : activeFilter;
     const resData: MetaResponse<Todo, TodoInfo> = await fetchTodos(queryFilter);
     setToDos(resData.data);
     setToDoInfo(resData.info);
   }
 
   return (
-    <>
-      <div className="layout">
-        <AddTodo updateTodos={getTodos} />
-        <TodoFilter
-          activeFilter={activeFilter}
-          setActiveFilter={setActiveFilter}
-          updateTodos={getTodos}
-          toDoInfo={toDoInfo}
-        />
-        <ToDoList updateTodos={getTodos} toDos={toDos} />
-      </div>
-    </>
+    <div className="layout">
+      <AddTodo updateTodos={getTodos} />
+      <TodoFilter
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+        updateTodos={getTodos}
+        toDoInfo={toDoInfo}
+      />
+      <ToDoList updateTodos={getTodos} toDos={toDos} />
+    </div>
   );
 }
 
