@@ -10,8 +10,8 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
   const todoInput = useRef<HTMLInputElement>(null);
 
   async function handleAddtodo(todoTitle: string | undefined) {
-    todoTitle = todoTitle?.trim();
-    const error = validateTodoTitle(todoTitle);
+    const trimedTitle = todoTitle?.trim();
+    const error = validateTodoTitle(trimedTitle);
     if (error) {
       setErrorText(error);
       return;
@@ -19,9 +19,9 @@ const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
 
     setErrorText("");
 
-    if (todoTitle && todoInput.current) {
+    if (trimedTitle && todoInput.current) {
       try {
-        const response = await addTodo(todoTitle);
+        const response = await addTodo(trimedTitle);
         if (response) {
           props.updateTodos();
           todoInput.current.value = "";
