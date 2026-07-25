@@ -5,10 +5,12 @@ import { deleteTodo, editTodo } from "@/api/FetchApi";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 
-const TodoItem: React.FC<{
+interface Props {
   todo: Todo;
   updateTodos: () => void;
-}> = (props) => {
+}
+
+const TodoItem: React.FC<Props> = (props) => {
   const [title, setTitle] = useState(props.todo.title);
   const [errorText, setErrorText] = useState("");
   const [isEditing, setIsEditing] = useState(false);

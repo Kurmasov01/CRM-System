@@ -2,10 +2,12 @@ import styles from "@/components/TodoList/TodoList.module.scss";
 import TodoItem from "@/components/TodoItem/TodoItem";
 import type { Todo } from "@/models/Models";
 
-const TodoList: React.FC<{
+interface Props {
   todos: Todo[];
   updateTodos: () => void;
-}> = (props) => {
+}
+
+const TodoList: React.FC<Props> = (props) => {
   return (
     <div className="section">
       <div className={styles.wrapper}>

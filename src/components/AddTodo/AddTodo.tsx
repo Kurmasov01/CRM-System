@@ -5,7 +5,11 @@ import { useRef } from "react";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 
-const Addtodo: React.FC<{ updateTodos: () => void }> = (props) => {
+interface Props {
+  updateTodos: () => void;
+}
+
+const Addtodo: React.FC<Props> = (props) => {
   const [errorText, setErrorText] = useState("");
   const todoInput = useRef<HTMLInputElement>(null);
 
