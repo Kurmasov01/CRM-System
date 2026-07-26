@@ -75,11 +75,11 @@ const TodoItem: React.FC<Props> = (props) => {
   }
 
   return (
-    <li
-      key={props.todo.id}
-      className={`${styles.listItem} ${props.todo.isDone ? styles.listItemChecked : ""}`}
-    >
-      <form onSubmit={(event) => handleTitleFormSubmit(event)}>
+    <li key={props.todo.id}>
+      <form
+        className={`${styles.listItem} ${props.todo.isDone ? styles.listItemChecked : ""}`}
+        onSubmit={(event) => handleTitleFormSubmit(event)}
+      >
         <div className={styles.todoLeft}>
           <label className={styles.checkbox}>
             <input
