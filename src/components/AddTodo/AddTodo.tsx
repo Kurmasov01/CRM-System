@@ -1,7 +1,6 @@
 import styles from "@/components/AddTodo/AddTodo.module.scss";
 import { addTodo } from "@/api/FetchApi";
 import React, { useState } from "react";
-import { useRef } from "react";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 
@@ -11,11 +10,11 @@ interface Props {
 
 const Addtodo: React.FC<Props> = (props) => {
   const [errorText, setErrorText] = useState("");
-  const todoInput = useRef<HTMLInputElement>(null);
+  const [titleValue, setTitleValue] = useState("");
 
   function handleFormSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleAddtodo(todoInput.current?.value);
+    handleAddtodo(titleValue);
   }
 
   async function handleAddtodo(todoTitle: string | undefined) {
@@ -28,12 +27,12 @@ const Addtodo: React.FC<Props> = (props) => {
 
     setErrorText("");
 
-    if (trimedTitle && todoInput.current) {
+    if (trimedTitle && titleValue) {
       try {
         const response = await addTodo(trimedTitle);
         if (response) {
           props.updateTodos();
-          todoInput.current.value = "";
+          setTitleValue("");
         }
       } catch (error) {
         alert("Не удалось создать задачу, ошибка: " + error);
@@ -51,7 +50,8 @@ const Addtodo: React.FC<Props> = (props) => {
           className={styles.input}
           type="text"
           placeholder="Введите название"
-          ref={todoInput}
+          value={titleValue}
+          onChange={(event) => {setTitleValue(event.currentTarget.value)}}
         />
         <button type="submit" className={styles.btn}>
           Добавить
