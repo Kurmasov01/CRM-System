@@ -3,12 +3,13 @@ import type {
   MetaResponse,
   TodoInfo,
   TodoRequest,
+  TodoActiveFilter
 } from "@/models/Models";
 
 const baseUrl = "https://easydev.club/api/v1";
 
 export async function getTodos(
-  activeFilter?: string,
+  activeFilter?: TodoActiveFilter,
 ): Promise<MetaResponse<Todo, TodoInfo>> {
   const response = await fetch(`${baseUrl}/todos?filter=${activeFilter}`);
   const resData: MetaResponse<Todo, TodoInfo> = await response.json();

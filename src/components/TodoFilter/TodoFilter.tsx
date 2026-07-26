@@ -1,15 +1,15 @@
 import styles from "@/components/TodoFilter/TodoFilter.module.scss";
-import type { TodoInfo } from "@/models/Models";
+import type { TodoInfo, TodoActiveFilter } from "@/models/Models";
 
 interface Props {
-  updateTodos: (activeFilter: string) => void;
-  setActiveFilter: (filter: string) => void;
-  activeFilter: string;
+  updateTodos: (activeFilter: TodoActiveFilter) => void;
+  setActiveFilter: (filter: TodoActiveFilter) => void;
+  activeFilter: TodoActiveFilter;
   todoInfo?: TodoInfo;
 }
 
 const TodoFilter: React.FC<Props> = (props) => {
-  function onFilterChange(filter: string) {
+  function onFilterChange(filter: TodoActiveFilter) {
     props.setActiveFilter(filter);
     props.updateTodos(filter);
   }

@@ -20,3 +20,5 @@ export interface MetaResponse<T, N> {
     totalAmount: number;
   };
 }
+
+export type TodoActiveFilter = "all" | "inWork" | "completed"
