@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 
 interface Props {
-  updateTodos: () => void;
+  updateTodos: () => Promise<void>;
 }
 
 const Addtodo: React.FC<Props> = (props) => {
@@ -31,7 +31,7 @@ const Addtodo: React.FC<Props> = (props) => {
       try {
         const response = await addTodo(trimedTitle);
         if (response) {
-          props.updateTodos();
+          await props.updateTodos();
           setTitleValue("");
         }
       } catch (error) {
