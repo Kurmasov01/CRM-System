@@ -9,8 +9,8 @@ interface Props {
 }
 
 const Addtodo: React.FC<Props> = (props) => {
-  const [errorText, setErrorText] = useState("");
-  const [titleValue, setTitleValue] = useState("");
+  const [errorText, setErrorText] = useState<string>("");
+  const [titleValue, setTitleValue] = useState<string>("");
 
   function handleFormSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();

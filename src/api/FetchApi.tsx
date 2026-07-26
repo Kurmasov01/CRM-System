@@ -6,7 +6,7 @@ import type {
   TodoActiveFilter
 } from "@/models/Models";
 
-const baseUrl = "https://easydev.club/api/v1";
+const baseUrl:string = "https://easydev.club/api/v1";
 
 export async function getTodos(
   activeFilter?: TodoActiveFilter,

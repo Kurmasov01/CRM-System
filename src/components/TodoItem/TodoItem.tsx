@@ -11,9 +11,9 @@ interface Props {
 }
 
 const TodoItem: React.FC<Props> = (props) => {
-  const [title, setTitle] = useState(props.todo.title);
-  const [errorText, setErrorText] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState<string>(props.todo.title);
+  const [errorText, setErrorText] = useState<string>("");
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   async function handleSaveTodo(id: number, todoTitle: string) {
     const error = validateTodoTitle(todoTitle);
