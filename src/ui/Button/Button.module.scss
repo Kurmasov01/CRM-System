@@ -1,0 +1,33 @@
+.btn {
+  font-family: system-ui;
+  font-weight: 400;
+  font-size: 16px;
+
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.primary {
+  color: $primary_color_1;
+  background-color: $primary_color_3;
+}
+
+.secondary {
+  color: $primary_color_1;
+  background-color: $primary_color_4;
+}
+
+.danger {
+  color: $primary_color_1;
+  background-color: $primary_color_2;
+}
+
+.neutral {
+  color: $primary_color_1;
+  background-color: $secondary_color_2;
+}
+

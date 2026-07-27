@@ -4,6 +4,7 @@ import { useState } from "react";
 import { deleteTodo, editTodo } from "@/api/FetchApi";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
+import Button from "@/ui/Button/Button";
 
 interface Props {
   todo: Todo;
@@ -110,43 +111,44 @@ const TodoItem: React.FC<Props> = (props) => {
         <div className={styles.btns}>
           {isEditing ? (
             <>
-              <button
-                className={`${styles.todoBtn} ${isEditing ? styles.activeBtn : ""}`}
-                disabled={props.todo.isDone}
+              <Button
+                variant="primary"
                 type="submit"
+                disabled={props.todo.isDone}
               >
                 Сохранить
-              </button>
-              <button
-                className={`${styles.todoBtn} ${styles.cancelBtn}`}
-                onClick={() => onCancelEdit()}
+              </Button>
+              <Button
+                variant="neutral"
                 type="button"
+                disabled={props.todo.isDone}
+                onClick={() => onCancelEdit()}
               >
                 Отмена
-              </button>
+              </Button>
             </>
           ) : (
-            <button
-              className={`${styles.todoBtn} ${isEditing ? styles.activeBtn : ""}`}
+            <Button
+              variant="primary"
+              type="button"
+              disabled={props.todo.isDone}
               onClick={() => {
                 setIsEditing(true);
               }}
-              disabled={props.todo.isDone}
-              type="button"
             >
               Редактировать
-            </button>
+            </Button>
           )}
 
-          <button
-            className={`${styles.todoBtn} ${styles.deleteBtn}`}
+          <Button
+            variant="danger"
+            type="button"
             onClick={() => {
               handleDeleteTodo(props.todo.id);
             }}
-            type="button"
           >
             Удалить
-          </button>
+          </Button>
         </div>
       </form>
     </li>

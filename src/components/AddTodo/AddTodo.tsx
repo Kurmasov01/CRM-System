@@ -3,6 +3,7 @@ import { addTodo } from "@/api/FetchApi";
 import React, { useState } from "react";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
+import Button from "@/ui/Button/Button";
 
 interface Props {
   updateTodos: () => Promise<void>;
@@ -51,11 +52,11 @@ const Addtodo: React.FC<Props> = (props) => {
           type="text"
           placeholder="Введите название"
           value={titleValue}
-          onChange={(event) => {setTitleValue(event.currentTarget.value)}}
+          onChange={(event) => {
+            setTitleValue(event.currentTarget.value);
+          }}
         />
-        <button type="submit" className={styles.btn}>
-          Добавить
-        </button>
+        <Button variant="primary" type="submit" >Добавить</Button>
       </form>
       {errorText && <span className={styles.error}>{errorText}</span>}
     </div>
