@@ -15,27 +15,6 @@
   gap: 20px;
   justify-content: space-between;
 }
-.todoBtn {
-  padding: 6px 8px;
-  border-radius: 5px;
-  background-color: $primary_color_3;
-  border: none;
-  color: $primary_color_1;
-
-  &:disabled {
-    background-color: $secondary_color_2;
-    cursor: default;
-  }
-}
-.activeBtn {
-  background-color: $primary_color_4;
-}
-.deleteBtn {
-  background-color: $primary_color_2;
-}
-.cancelBtn {
-  background-color: $primary_color_3;
-}
 
 .todoLeft {
   display: flex;
