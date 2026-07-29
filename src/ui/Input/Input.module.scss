@@ -1,0 +1,23 @@
+.input {
+  font-family: system-ui;
+  font-weight: 400;
+  font-size: 16px;
+  outline: 0 none;
+  appearance: none;
+}
+
+.primary {
+  border: solid 1px $secondary_color_1;
+  border-radius: 5px;
+
+  padding: 10px 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: $primary_color_5;
+  border: none;
+  background-color: unset;
+}
+

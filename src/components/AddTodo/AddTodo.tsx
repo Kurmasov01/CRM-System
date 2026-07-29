@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 import Button from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
 
 interface Props {
   updateTodos: () => Promise<void>;
@@ -47,8 +48,8 @@ const Addtodo: React.FC<Props> = (props) => {
         className={styles.wrapper}
         onSubmit={(event) => handleFormSubmit(event)}
       >
-        <input
-          className={styles.input}
+        <Input
+          variant="primary"
           type="text"
           placeholder="Введите название"
           value={titleValue}
@@ -56,7 +57,9 @@ const Addtodo: React.FC<Props> = (props) => {
             setTitleValue(event.currentTarget.value);
           }}
         />
-        <Button variant="primary" type="submit" >Добавить</Button>
+        <Button variant="primary" type="submit">
+          Добавить
+        </Button>
       </form>
       {errorText && <span className={styles.error}>{errorText}</span>}
     </div>

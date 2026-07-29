@@ -5,6 +5,7 @@ import { deleteTodo, editTodo } from "@/api/FetchApi";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 import Button from "@/ui/Button/Button";
+import Input from "@/ui/Input/Input";
 
 interface Props {
   todo: Todo;
@@ -93,12 +94,13 @@ const TodoItem: React.FC<Props> = (props) => {
             <span className={styles.checkboxMark}></span>
           </label>
           <div className={styles.todoInfo}>
-            <input
+            <Input
               className={`${styles.todoTitle} ${props.todo.isDone ? styles.titleChecked : ""}`}
+              variant="title"
               value={title}
               onChange={(event) => setTitle(event.currentTarget.value)}
               disabled={!isEditing}
-            ></input>
+            />
             {errorText !== "" ? (
               <span className={styles.error}>{errorText}</span>
             ) : (
