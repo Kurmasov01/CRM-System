@@ -6,6 +6,8 @@ import { deleteTodo, editTodo } from "@/api/FetchApi";
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
 import IconButton from "@/ui/IconButton/IconButton";
 import Input from "@/ui/Input/Input";
+import Checkbox from "@/ui/Checkbox/Checkbox";
+
 import DeleteIcon from "@/assets/icons/DeleteIcon";
 import EditIcon from "@/assets/icons/EditIcon";
 import CancelIcon from "@/assets/icons/CancelIcon";
@@ -87,16 +89,10 @@ const TodoItem: React.FC<Props> = (props) => {
         onSubmit={(event) => handleTitleFormSubmit(event)}
       >
         <div className={styles.todoLeft}>
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              onChange={() =>
-                changeTodoStatus(props.todo.id, props.todo.isDone)
-              }
-              checked={props.todo.isDone}
-            />
-            <span className={styles.checkboxMark}></span>
-          </label>
+          <Checkbox
+            onChange={() => changeTodoStatus(props.todo.id, props.todo.isDone)}
+            checked={props.todo.isDone}
+          ></Checkbox>
           <div className={styles.todoInfo}>
             <Input
               className={`${styles.todoTitle} ${props.todo.isDone ? styles.titleChecked : ""}`}
