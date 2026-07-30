@@ -4,8 +4,12 @@ import { useState } from "react";
 import { deleteTodo, editTodo } from "@/api/FetchApi";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
-import Button from "@/ui/Button/Button";
+import IconButton from "@/ui/IconButton/IconButton";
 import Input from "@/ui/Input/Input";
+import DeleteIcon from "@/assets/icons/DeleteIcon";
+import EditIcon from "@/assets/icons/EditIcon";
+import CancelIcon from "@/assets/icons/CancelIcon";
+import SaveIcon from "@/assets/icons/SaveIcon";
 
 interface Props {
   todo: Todo;
@@ -113,24 +117,24 @@ const TodoItem: React.FC<Props> = (props) => {
         <div className={styles.btns}>
           {isEditing ? (
             <>
-              <Button
+              <IconButton
                 variant="primary"
                 type="submit"
                 disabled={props.todo.isDone}
               >
-                Сохранить
-              </Button>
-              <Button
+                <SaveIcon size={18}></SaveIcon>
+              </IconButton>
+              <IconButton
                 variant="neutral"
                 type="button"
                 disabled={props.todo.isDone}
                 onClick={() => onCancelEdit()}
               >
-                Отмена
-              </Button>
+                <CancelIcon size={18}></CancelIcon>
+              </IconButton>
             </>
           ) : (
-            <Button
+            <IconButton
               variant="primary"
               type="button"
               disabled={props.todo.isDone}
@@ -138,19 +142,18 @@ const TodoItem: React.FC<Props> = (props) => {
                 setIsEditing(true);
               }}
             >
-              Редактировать
-            </Button>
+              <EditIcon size={18}></EditIcon>
+            </IconButton>
           )}
-
-          <Button
+          <IconButton
             variant="danger"
             type="button"
             onClick={() => {
               handleDeleteTodo(props.todo.id);
             }}
           >
-            Удалить
-          </Button>
+            <DeleteIcon size={18}></DeleteIcon>
+          </IconButton>
         </div>
       </form>
     </li>
