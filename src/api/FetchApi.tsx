@@ -30,12 +30,12 @@ export async function addTodo(todoTitle: string): Promise<Todo> {
   return resData;
 }
 
-export async function deleteTodo(id: number): Promise<Todo> {
+export async function deleteTodo(id: number): Promise<boolean> {
   const response = await fetch(`${baseUrl}/todos/${id}`, {
     method: "DELETE",
   });
-  const resData: Todo = await response.json();
-  return resData;
+
+  return response.ok;
 }
 
 export async function editTodo(id: number, todo: TodoRequest): Promise<Todo> {
