@@ -122,7 +122,7 @@ const TodoItem: React.FC<Props> = (props) => {
                 variant="neutral"
                 type="button"
                 disabled={props.todo.isDone}
-                onClick={() => onCancelEdit()}
+                onClick={onCancelEdit}
               >
                 <CancelIcon size={18}></CancelIcon>
               </IconButton>
