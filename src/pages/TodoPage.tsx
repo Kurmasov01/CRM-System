@@ -12,10 +12,10 @@ function TodoPage() {
   const [activeFilter, setActiveFilter] = useState<TodoActiveFilter>("all");
 
   useEffect(() => {
-    onGetTodos();
+    fetchTodos();
   }, []);
 
-  async function onGetTodos(filter?: TodoActiveFilter) {
+  async function fetchTodos(filter?: TodoActiveFilter) {
     let queryFilter: TodoActiveFilter = filter ? filter : activeFilter;
     try {
       const resData: MetaResponse<Todo, TodoInfo> = await getTodos(queryFilter);
@@ -29,14 +29,14 @@ function TodoPage() {
   return (
     <section className="layout">
       <h1>Мои задачи</h1>
-      <AddTodo updateTodos={onGetTodos} />
+      <AddTodo updateTodos={fetchTodos} />
       <TodoFilter
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
-        updateTodos={onGetTodos}
+        updateTodos={fetchTodos}
         todoInfo={todoInfo}
       />
-      <TodoList updateTodos={onGetTodos} todos={todos} />
+      <TodoList updateTodos={fetchTodos} todos={todos} />
     </section>
   );
 }
