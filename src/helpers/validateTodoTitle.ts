@@ -9,11 +9,11 @@ export function validateTodoTitle(title: string | undefined): string {
   }
 
   if (value.length < TITLE_MIN_LENGTH) {
-    return "Минимальная длина текста 2 символа";
+    return `Минимальная длина текста ${TITLE_MIN_LENGTH} символа`;
   }
 
   if (value.length > TITLE_MAX_LENGTH) {
-    return "Максимальная длина текста 64 символа";
+    return `Максимальная длина текста ${TITLE_MAX_LENGTH} символа`;
   }
 
   return "";
