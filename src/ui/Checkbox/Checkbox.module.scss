@@ -19,7 +19,7 @@
   width: 22px;
   height: 22px;
 
-  border: 2px solid $secondary_color_1;
+  border: 2px solid $light_2;
   border-radius: 6px;
 
   position: relative;
@@ -36,13 +36,13 @@
   width: 6px;
   height: 12px;
 
-  border: solid $primary_color_1;
+  border: solid $light;
   border-width: 0 2px 2px 0;
 }
 
 .checkbox input:checked + .checkboxMark {
-  background: $primary_color_4;
-  border-color: $primary_color_4;
+  background: $success;
+  border-color: $success;
 }
 
 .checkbox input:checked + .checkboxMark::after {
@@ -50,5 +50,5 @@
 }
 
 .checkbox:hover .checkboxMark {
-  border-color: $primary_color_4;
+  border-color: $success;
 }

@@ -12,22 +12,22 @@
 }
 
 .primary {
-  color: $primary_color_1;
-  background-color: $primary_color_3;
+  color: $light;
+  background-color: $primary;
 }
 
 .secondary {
-  color: $primary_color_1;
-  background-color: $primary_color_4;
+  color: $light;
+  background-color: $success;
 }
 
 .danger {
-  color: $primary_color_1;
-  background-color: $primary_color_2;
+  color: $light;
+  background-color: $danger;
 }
 
 .neutral {
-  color: $primary_color_1;
-  background-color: $secondary_color_2;
+  color: $light;
+  background-color: $secondary;
 }
 

@@ -1,7 +1,7 @@
 .listItem {
   display: flex;
   justify-content: space-between;
-  border: solid 1px $secondary_color_1;
+  border: solid 1px $light_2;
   border-radius: 5px;
 
   padding: 10px 16px;
@@ -26,7 +26,7 @@
 }
 
 .listItemChecked {
-  background-color: $secondary_color_3;
+  background-color: $success_2;
 }
 
 .titleChecked {

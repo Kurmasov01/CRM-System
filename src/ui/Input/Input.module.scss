@@ -7,7 +7,7 @@
 }
 
 .primary {
-  border: solid 1px $secondary_color_1;
+  border: solid 1px $light_2;
   border-radius: 5px;
 
   padding: 10px 16px;
@@ -16,7 +16,7 @@
 .title {
   font-size: 20px;
   font-weight: 600;
-  color: $primary_color_5;
+  color: $dark;
   border: none;
   background-color: unset;
 }
