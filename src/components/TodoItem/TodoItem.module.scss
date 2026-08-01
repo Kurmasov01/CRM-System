@@ -1,0 +1,34 @@
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  border: solid 1px $light_2;
+  border-radius: 5px;
+
+  padding: 10px 16px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.todoLeft {
+  display: flex;
+  gap: 20px;
+}
+
+.todoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.listItemChecked {
+  background-color: $success_2;
+}
+
+.titleChecked {
+  text-decoration: line-through;
+}

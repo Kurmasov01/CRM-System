@@ -1,0 +1,10 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.noTodosText {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+}

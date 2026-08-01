@@ -1,0 +1,38 @@
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 4px;
+
+  background-color: $light_2;
+  border-radius: 5px;
+
+  width: fit-content;
+}
+
+.filter {
+  font-family: system-ui;
+  font-weight: 400;
+  font-size: 16px;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 8px;
+  border-radius: 5px;
+  border: none;
+
+  background-color: transparent;
+
+  color: $dark;
+
+  cursor: pointer;
+}
+
+.active {
+  background-color: #fff;
+  color: $primary;
+}
