@@ -85,7 +85,7 @@ const TodoItem: React.FC<Props> = (props) => {
   return (
     <li key={props.todo.id}>
       <form
-        className={`${styles.listItem} ${props.todo.isDone ? styles.listItemChecked : ""}`}
+        className={`${styles.listItem} ${props.todo.isDone && styles.listItemChecked}`}
         onSubmit={(event) => handleTitleFormSubmit(event)}
       >
         <div className={styles.todoLeft}>
@@ -95,16 +95,14 @@ const TodoItem: React.FC<Props> = (props) => {
           ></Checkbox>
           <div className={styles.todoInfo}>
             <Input
-              className={`${styles.todoTitle} ${props.todo.isDone ? styles.titleChecked : ""}`}
+              className={`${styles.todoTitle} ${props.todo.isDone && styles.titleChecked}`}
               variant="title"
               value={title}
               onChange={(event) => setTitle(event.currentTarget.value)}
               disabled={!isEditing}
             />
-            {errorText !== "" ? (
+            {errorText !== "" && (
               <span className={styles.error}>{errorText}</span>
-            ) : (
-              ""
             )}
             <span className={styles.todoDate}>{props.todo.created}</span>
           </div>

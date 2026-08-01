@@ -17,7 +17,7 @@ const TodoFilter: React.FC<Props> = (props) => {
   return (
     <div className={styles.filters}>
       <button
-        className={`${styles.filter} ${props.activeFilter === "all" ? styles.active : ""}`}
+        className={`${styles.filter} ${props.activeFilter === "all" && styles.active}`}
         onClick={() => {
           onFilterChange("all");
         }}
@@ -26,7 +26,7 @@ const TodoFilter: React.FC<Props> = (props) => {
       </button>
 
       <button
-        className={`${styles.filter} ${props.activeFilter === "inWork" ? styles.active : ""}`}
+        className={`${styles.filter} ${props.activeFilter === "inWork" && styles.active}`}
         onClick={() => {
           onFilterChange("inWork");
         }}
@@ -35,7 +35,7 @@ const TodoFilter: React.FC<Props> = (props) => {
       </button>
 
       <button
-        className={`${styles.filter} ${props.activeFilter === "completed" ? styles.active : ""}`}
+        className={`${styles.filter} ${props.activeFilter === "completed" && styles.active}`}
         onClick={() => {
           onFilterChange("completed");
         }}
