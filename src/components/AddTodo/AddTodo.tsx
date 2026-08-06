@@ -1,40 +1,29 @@
-import styles from "@/components/AddTodo/AddTodo.module.scss";
 import { addTodo } from "@/api/FetchApi";
-import React, { useState } from "react";
-
-import { validateTodoTitle } from "@/helpers/validateTodoTitle";
-import Button from "@/ui/Button/Button";
-import Input from "@/ui/Input/Input";
+import { Button, Form, Input } from "antd";
 
 interface Props {
   updateTodos: () => Promise<void>;
 }
 
 const Addtodo: React.FC<Props> = (props) => {
-  const [errorText, setErrorText] = useState<string>("");
-  const [titleValue, setTitleValue] = useState<string>("");
+  const [form] = Form.useForm();
 
-  function handleFormSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-    handleAddtodo(titleValue);
-  }
+  const validateMessages = {
+    whitespace: "Поле не должно быть пустым",
+    required: "Поле не должно быть пустым",
+    string: {
+      range: "Длина текста от ${min} до ${max} символов",
+    },
+  };
 
-  async function handleAddtodo(todoTitle: string | undefined) {
-    const trimedTitle = todoTitle?.trim();
-    const error = validateTodoTitle(trimedTitle);
-    if (error) {
-      setErrorText(error);
-      return;
-    }
+  async function handleAddtodo(values: { todo_title: string }) {
+    const trimedTitle = values.todo_title?.trim();
 
-    setErrorText("");
-
-    if (trimedTitle && titleValue) {
+    if (trimedTitle) {
       try {
         const response = await addTodo(trimedTitle);
         if (response) {
           await props.updateTodos();
-          setTitleValue("");
         }
       } catch (error) {
         alert("Не удалось создать задачу, ошибка: " + error);
@@ -43,26 +32,25 @@ const Addtodo: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="section">
-      <form
-        className={styles.wrapper}
-        onSubmit={(event) => handleFormSubmit(event)}
+    <Form
+      layout="inline"
+      form={form}
+      validateMessages={validateMessages}
+      onFinish={handleAddtodo}
+    >
+      <Form.Item
+        name="todo_title"
+        validateTrigger="onBlur"
+        rules={[{ whitespace: true, required: true, min: 2, max: 64 }]}
       >
-        <Input
-          variant="primary"
-          type="text"
-          placeholder="Введите название"
-          value={titleValue}
-          onChange={(event) => {
-            setTitleValue(event.currentTarget.value);
-          }}
-        />
-        <Button variant="primary" type="submit">
+        <Input placeholder="Введите название" />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
           Добавить
         </Button>
-      </form>
-      {errorText && <span className={styles.error}>{errorText}</span>}
-    </div>
+      </Form.Item>
+    </Form>
   );
 };
 
