@@ -1,5 +1,6 @@
-import TodoPage from "@/pages/TodoPage";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import AppRouters from "./router/AppRouters";
+
 import "@/styles/Base.scss";
 import "@/styles/Reset.scss";
 import "@/styles/Layout.scss";
@@ -7,9 +8,7 @@ import "@/styles/Layout.scss";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<TodoPage />} />
-      </Routes>
+      <AppRouters />
     </BrowserRouter>
   );
 }

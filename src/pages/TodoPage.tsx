@@ -3,7 +3,12 @@ import TodoList from "@/components/TodoList/TodoList";
 import TodoFilter from "@/components/TodoFilter/TodoFilter";
 import { getTodos } from "@/api/FetchApi";
 import { useState } from "react";
-import type { Todo, TodoInfo, MetaResponse, TodoActiveFilter } from "@/models/Models";
+import type {
+  Todo,
+  TodoInfo,
+  MetaResponse,
+  TodoActiveFilter,
+} from "@/models/Models";
 import { useEffect } from "react";
 
 function TodoPage() {
@@ -27,7 +32,7 @@ function TodoPage() {
   }
 
   return (
-    <section className="layout">
+    <>
       <h1>Мои задачи</h1>
       <AddTodo updateTodos={onGetTodos} />
       <TodoFilter
@@ -37,7 +42,7 @@ function TodoPage() {
         todoInfo={todoInfo}
       />
       <TodoList updateTodos={onGetTodos} todos={todos} />
-    </section>
+    </>
   );
 }
 

@@ -6,3 +6,14 @@ $danger: #e61716;
 $light: #f7f8fa;
 $light_2: #e4e7ed;
 $dark: #1f2639;
+
+:root {
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --success: #{$success};
+  --success_2: #{$success_2};
+  --danger: #{$danger};
+  --light: #{$light};
+  --light_2: #{$light_2};
+  --dark: #{$dark};
+}
