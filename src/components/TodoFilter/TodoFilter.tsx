@@ -1,10 +1,10 @@
-import styles from "@/components/TodoFilter/TodoFilter.module.scss";
 import type { TodoInfo, TodoActiveFilter } from "@/models/Models";
+import { Tabs } from "antd";
+import type { TabsProps } from "antd";
 
 interface Props {
   updateTodos: (activeFilter: TodoActiveFilter) => void;
   setActiveFilter: (filter: TodoActiveFilter) => void;
-  activeFilter: TodoActiveFilter;
   todoInfo?: TodoInfo;
 }
 
@@ -14,36 +14,26 @@ const TodoFilter: React.FC<Props> = (props) => {
     props.updateTodos(filter);
   }
 
-  return (
-    <div className={styles.filters}>
-      <button
-        className={`${styles.filter} ${props.activeFilter === "all" && styles.active}`}
-        onClick={() => {
-          onFilterChange("all");
-        }}
-      >
-        Все ({props.todoInfo?.all})
-      </button>
+  const onChange = (key: string) => {
+    onFilterChange(key as TodoActiveFilter);
+  };
 
-      <button
-        className={`${styles.filter} ${props.activeFilter === "inWork" && styles.active}`}
-        onClick={() => {
-          onFilterChange("inWork");
-        }}
-      >
-        В работе ({props.todoInfo?.inWork})
-      </button>
+  const items: TabsProps["items"] = [
+    {
+      key: "all",
+      label: `Все (${props.todoInfo?.all})`,
+    },
+    {
+      key: "inWork",
+      label: `В работе (${props.todoInfo?.inWork})`,
+    },
+    {
+      key: "completed",
+      label: `Сделано (${props.todoInfo?.completed})`,
+    },
+  ];
 
-      <button
-        className={`${styles.filter} ${props.activeFilter === "completed" && styles.active}`}
-        onClick={() => {
-          onFilterChange("completed");
-        }}
-      >
-        Сделано ({props.todoInfo?.completed})
-      </button>
-    </div>
-  );
+  return <Tabs defaultActiveKey="all" items={items} onChange={onChange} />;
 };
 
 export default TodoFilter;

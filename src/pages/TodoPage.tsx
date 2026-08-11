@@ -36,7 +36,6 @@ function TodoPage() {
       <h1>Мои задачи</h1>
       <AddTodo updateTodos={onGetTodos} />
       <TodoFilter
-        activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
         updateTodos={onGetTodos}
         todoInfo={todoInfo}
