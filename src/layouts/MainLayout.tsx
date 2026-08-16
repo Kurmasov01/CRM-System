@@ -18,7 +18,7 @@ function MainLayout() {
     },
   ];
   const contentStyle: React.CSSProperties = {
-    padding: "20px 5%",
+    padding: "20px 10%",
   };
 
   const siderStyle: React.CSSProperties = {

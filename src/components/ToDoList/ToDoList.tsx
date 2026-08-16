@@ -1,7 +1,6 @@
-import styles from "@/components/TodoList/TodoList.module.scss";
 import TodoItem from "@/components/TodoItem/TodoItem";
 import type { Todo } from "@/models/Models";
-
+import { List, Empty, Typography } from "antd";
 interface Props {
   todos: Todo[];
   updateTodos: () => void;
@@ -9,25 +8,24 @@ interface Props {
 
 const TodoList: React.FC<Props> = (props) => {
   return (
-    <div className="section">
-      <div className={styles.wrapper}>
-        {props.todos.length !== 0 ? (
-          <ul className={styles.list}>
-            {props.todos.map((todo) => (
-              <TodoItem
-                updateTodos={props.updateTodos}
-                key={todo.id}
-                todo={todo}
-              />
-            ))}
-          </ul>
-        ) : (
-          <div className={styles.noTodosText}>
-            <span>Текущих задач нет</span>
-          </div>
-        )}
-      </div>
-    </div>
+    <>
+      {props.todos.length !== 0 ? (
+        <List
+          dataSource={props.todos}
+          renderItem={(todo) => (
+            <TodoItem
+              updateTodos={props.updateTodos}
+              key={todo.id}
+              todo={todo}
+            />
+          )}
+        />
+      ) : (
+        <Empty
+          description={<Typography.Text>Текущих задач нет</Typography.Text>}
+        ></Empty>
+      )}
+    </>
   );
 };
 

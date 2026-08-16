@@ -1,17 +1,17 @@
-import styles from "@/components/TodoItem/TodoItem.module.scss";
 import type { Todo, TodoRequest } from "@/models/Models";
 import { useState } from "react";
 import { deleteTodo, editTodo } from "@/api/FetchApi";
+import { Form, List, Typography, Checkbox, Button, Flex, Input } from "antd";
+import styles from "@/components/TodoItem/TodoItem.module.scss";
 
 import { validateTodoTitle } from "@/helpers/validateTodoTitle";
-import IconButton from "@/ui/IconButton/IconButton";
-import Input from "@/ui/Input/Input";
-import Checkbox from "@/ui/Checkbox/Checkbox";
 
-import DeleteIcon from "@/assets/icons/DeleteIcon";
-import EditIcon from "@/assets/icons/EditIcon";
-import CancelIcon from "@/assets/icons/CancelIcon";
-import SaveIcon from "@/assets/icons/SaveIcon";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  SaveOutlined,
+  StopOutlined,
+} from "@ant-design/icons";
 
 interface Props {
   todo: Todo;
@@ -77,80 +77,86 @@ const TodoItem: React.FC<Props> = (props) => {
     setTitle(props.todo.title);
   }
 
-  function handleTitleFormSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-    handleSaveTodo(props.todo.id, title);
-  }
-
   return (
-    <li key={props.todo.id}>
-      <form
-        className={`${styles.listItem} ${props.todo.isDone && styles.listItemChecked}`}
-        onSubmit={(event) => handleTitleFormSubmit(event)}
+    <List.Item key={props.todo.id}>
+      <Form
+        layout="inline"
+        style={{ width: "100%" }}
+        onFinish={() => handleSaveTodo(props.todo.id, title)}
       >
-        <div className={styles.todoLeft}>
-          <Checkbox
-            onChange={() => changeTodoStatus(props.todo.id, props.todo.isDone)}
-            checked={props.todo.isDone}
-          ></Checkbox>
-          <div className={styles.todoInfo}>
-            <Input
-              className={`${styles.todoTitle} ${props.todo.isDone && styles.titleChecked}`}
-              variant="title"
-              value={title}
-              onChange={(event) => setTitle(event.currentTarget.value)}
-              disabled={!isEditing}
+        <Flex justify="space-between" style={{ width: "100%" }}>
+          <Flex gap={"medium"}>
+            <Checkbox
+              checked={props.todo.isDone}
+              onChange={() =>
+                changeTodoStatus(props.todo.id, props.todo.isDone)
+              }
             />
-            {errorText !== "" && (
-              <span className={styles.error}>{errorText}</span>
-            )}
-            <span className={styles.todoDate}>{props.todo.created}</span>
-          </div>
-        </div>
+            <Flex vertical>
+              <Form.Item
+                validateTrigger="onBlur"
+                rules={[{ whitespace: true, required: true, min: 2, max: 64 }]}
+              >
+                <Input
+                  className={styles.todoTitle}
+                  size="large"
+                  onChange={(event) => setTitle(event.currentTarget.value)}
+                  value={title}
+                  variant="borderless"
+                  disabled={!isEditing}
+                />
+              </Form.Item>
 
-        <div className={styles.btns}>
-          {isEditing ? (
-            <>
-              <IconButton
-                variant="primary"
-                type="submit"
+              {errorText && (
+                <Typography.Text type="danger">{errorText}</Typography.Text>
+              )}
+              <Typography.Text type="secondary">
+                {props.todo.created}
+              </Typography.Text>
+            </Flex>
+          </Flex>
+
+          <Flex gap={"small"} align="center">
+            {isEditing ? (
+              <>
+                <Button
+                  color="primary"
+                  variant="solid"
+                  icon={<SaveOutlined />}
+                  htmlType="submit"
+                  disabled={props.todo.isDone}
+                />
+                <Button
+                  color="default"
+                  variant="solid"
+                  icon={<StopOutlined />}
+                  disabled={props.todo.isDone}
+                  onClick={onCancelEdit}
+                />
+              </>
+            ) : (
+              <Button
                 disabled={props.todo.isDone}
-              >
-                <SaveIcon size={18}></SaveIcon>
-              </IconButton>
-              <IconButton
-                variant="neutral"
-                type="button"
-                disabled={props.todo.isDone}
-                onClick={onCancelEdit}
-              >
-                <CancelIcon size={18}></CancelIcon>
-              </IconButton>
-            </>
-          ) : (
-            <IconButton
-              variant="primary"
-              type="button"
-              disabled={props.todo.isDone}
+                color="primary"
+                variant="solid"
+                icon={<EditOutlined />}
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+              />
+            )}
+            <Button
+              color="danger"
+              variant="solid"
+              icon={<DeleteOutlined />}
               onClick={() => {
-                setIsEditing(true);
+                handleDeleteTodo(props.todo.id);
               }}
-            >
-              <EditIcon size={18}></EditIcon>
-            </IconButton>
-          )}
-          <IconButton
-            variant="danger"
-            type="button"
-            onClick={() => {
-              handleDeleteTodo(props.todo.id);
-            }}
-          >
-            <DeleteIcon size={18}></DeleteIcon>
-          </IconButton>
-        </div>
-      </form>
-    </li>
+            />
+          </Flex>
+        </Flex>
+      </Form>
+    </List.Item>
   );
 };
 

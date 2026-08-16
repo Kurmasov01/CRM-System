@@ -32,3 +32,12 @@
 .titleChecked {
   text-decoration: line-through;
 }
+
+.todoTitle {
+  padding: 0;
+
+  &:disabled {
+    color: $dark;
+  }
+}
+
