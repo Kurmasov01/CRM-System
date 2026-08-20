@@ -10,6 +10,7 @@ import type {
   TodoActiveFilter,
 } from "@/models/Models";
 import { useEffect } from "react";
+import Title from "antd/es/typography/Title";
 
 function TodoPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -18,7 +19,12 @@ function TodoPage() {
 
   useEffect(() => {
     onGetTodos();
-  }, []);
+    const timerId = setInterval(onGetTodos, 5000, activeFilter);
+
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [activeFilter]);
 
   async function onGetTodos(filter?: TodoActiveFilter) {
     let queryFilter: TodoActiveFilter = filter ? filter : activeFilter;
@@ -33,7 +39,7 @@ function TodoPage() {
 
   return (
     <>
-      <h1>Мои задачи</h1>
+      <Title level={1}>Мои задачи</Title>
       <AddTodo updateTodos={onGetTodos} />
       <TodoFilter
         setActiveFilter={setActiveFilter}
