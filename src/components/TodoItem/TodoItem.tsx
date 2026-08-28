@@ -16,6 +16,7 @@ import {
 interface Props {
   todo: Todo;
   updateTodos: () => void;
+  setPauseTimer: (pauseValue: boolean) => void;
 }
 
 const TodoItem: React.FC<Props> = (props) => {
@@ -82,6 +83,12 @@ const TodoItem: React.FC<Props> = (props) => {
   function onCancelEdit() {
     setIsEditing(false);
     setTitle(props.todo.title);
+    props.setPauseTimer(false);
+  }
+
+  function onEdit() {
+    setIsEditing(true);
+    props.setPauseTimer(true);
   }
 
   return (
@@ -147,9 +154,7 @@ const TodoItem: React.FC<Props> = (props) => {
                 color="primary"
                 variant="solid"
                 icon={<EditOutlined />}
-                onClick={() => {
-                  setIsEditing(true);
-                }}
+                onClick={onEdit}
               />
             )}
             <Button

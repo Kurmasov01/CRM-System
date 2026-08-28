@@ -13,15 +13,20 @@ function TodoPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [todoInfo, setTodoInfo] = useState<TodoInfo>();
   const [activeFilter, setActiveFilter] = useState<TodoActiveFilter>("all");
+  const [pauseTimer, setPauseTimer] = useState<boolean>(false);
 
   useEffect(() => {
     onGetTodos();
+  }, []);
+
+  useEffect(() => {
+    if (pauseTimer) return;
     const timerId = setInterval(onGetTodos, GET_TODOS_INTERVAL, activeFilter);
 
     return () => {
       clearInterval(timerId);
     };
-  }, [activeFilter]);
+  }, [activeFilter, pauseTimer]);
 
   async function onGetTodos(filter?: TodoActiveFilter) {
     let queryFilter = filter ?? activeFilter;
@@ -43,7 +48,11 @@ function TodoPage() {
         updateTodos={onGetTodos}
         todoInfo={todoInfo}
       />
-      <TodoList updateTodos={onGetTodos} todos={todos} />
+      <TodoList
+        updateTodos={onGetTodos}
+        todos={todos}
+        setPauseTimer={setPauseTimer}
+      />
     </>
   );
 }

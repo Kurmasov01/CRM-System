@@ -4,6 +4,7 @@ import { List, Empty, Typography } from "antd";
 interface Props {
   todos: Todo[];
   updateTodos: () => void;
+  setPauseTimer: (pauseValue: boolean) => void;
 }
 
 const TodoList: React.FC<Props> = (props) => {
@@ -15,6 +16,7 @@ const TodoList: React.FC<Props> = (props) => {
           renderItem={(todo) => (
             <TodoItem
               updateTodos={props.updateTodos}
+              setPauseTimer={props.setPauseTimer}
               key={todo.id}
               todo={todo}
             />
