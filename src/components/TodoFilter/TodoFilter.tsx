@@ -9,6 +9,10 @@ interface Props {
 }
 
 const TodoFilter: React.FC<Props> = (props) => {
+  const allTodosCount: string = props.todoInfo
+    ? `${props.todoInfo?.inProgress + props.todoInfo?.done}`
+    : "";
+    
   function onFilterChange(filter: TodoActiveFilter) {
     props.setActiveFilter(filter);
     props.updateTodos(filter);
@@ -21,15 +25,15 @@ const TodoFilter: React.FC<Props> = (props) => {
   const items: TabsProps["items"] = [
     {
       key: "all",
-      label: `Все (${props.todoInfo?.all})`,
+      label: `Все (${allTodosCount})`,
     },
     {
-      key: "inWork",
-      label: `В работе (${props.todoInfo?.inWork})`,
+      key: "inProgress",
+      label: `В работе (${props.todoInfo?.inProgress})`,
     },
     {
-      key: "completed",
-      label: `Сделано (${props.todoInfo?.completed})`,
+      key: "done",
+      label: `Сделано (${props.todoInfo?.done})`,
     },
   ];
 

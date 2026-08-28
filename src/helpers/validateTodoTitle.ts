@@ -2,7 +2,7 @@ export function validateTodoTitle(title: string | undefined): string {
   const value = title?.trim();
 
   const TITLE_MAX_LENGTH:number = 64;
-  const TITLE_MIN_LENGTH:number = 2;
+  const TITLE_MIN_LENGTH:number = 4;
 
   if (!value) {
     return "Это поле не может быть пустым";

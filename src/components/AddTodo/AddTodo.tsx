@@ -41,7 +41,7 @@ const Addtodo: React.FC<Props> = (props) => {
       <Form.Item
         name="todo_title"
         validateTrigger="onBlur"
-        rules={[{ whitespace: true, required: true, min: 2, max: 64 }]}
+        rules={[{ whitespace: true, required: true, min: 4, max: 64 }]}
       >
         <Input placeholder="Введите название" />
       </Form.Item>

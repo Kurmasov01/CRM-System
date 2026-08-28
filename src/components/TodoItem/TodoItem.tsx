@@ -23,6 +23,8 @@ const TodoItem: React.FC<Props> = (props) => {
   const [errorText, setErrorText] = useState<string>("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
+  const isTodoDone = props.todo.status === "done";
+
   async function handleSaveTodo(id: number, todoTitle: string) {
     const error = validateTodoTitle(todoTitle);
 
@@ -35,6 +37,7 @@ const TodoItem: React.FC<Props> = (props) => {
 
     const todo: TodoRequest = {
       title: todoTitle,
+      executorId: 1,
     };
     try {
       const response = await editTodo(id, todo);
@@ -59,9 +62,13 @@ const TodoItem: React.FC<Props> = (props) => {
     }
   }
 
-  async function changeTodoStatus(id: number, currentStatus: boolean) {
-    const todo: TodoRequest = {};
-    todo.isDone = !currentStatus;
+  async function changeTodoStatus(id: number, currentStatus: string) {
+    const todo: TodoRequest = {
+      title: props.todo.title,
+      executorId: 1,
+    };
+    currentStatus = currentStatus === "done" ? "inProgress" : "done";
+    todo.status = currentStatus;
     try {
       const response = await editTodo(id, todo);
       if (response) {
@@ -87,9 +94,9 @@ const TodoItem: React.FC<Props> = (props) => {
         <Flex justify="space-between" style={{ width: "100%" }}>
           <Flex gap={"medium"}>
             <Checkbox
-              checked={props.todo.isDone}
+              checked={isTodoDone}
               onChange={() =>
-                changeTodoStatus(props.todo.id, props.todo.isDone)
+                changeTodoStatus(props.todo.id, props.todo.status)
               }
             />
             <Flex vertical>
@@ -111,7 +118,7 @@ const TodoItem: React.FC<Props> = (props) => {
                 <Typography.Text type="danger">{errorText}</Typography.Text>
               )}
               <Typography.Text type="secondary">
-                {props.todo.created}
+                {props.todo.createdAt}
               </Typography.Text>
             </Flex>
           </Flex>
@@ -124,19 +131,19 @@ const TodoItem: React.FC<Props> = (props) => {
                   variant="solid"
                   icon={<SaveOutlined />}
                   htmlType="submit"
-                  disabled={props.todo.isDone}
+                  disabled={isTodoDone}
                 />
                 <Button
                   color="default"
                   variant="solid"
                   icon={<StopOutlined />}
-                  disabled={props.todo.isDone}
+                  disabled={isTodoDone}
                   onClick={onCancelEdit}
                 />
               </>
             ) : (
               <Button
-                disabled={props.todo.isDone}
+                disabled={isTodoDone}
                 color="primary"
                 variant="solid"
                 icon={<EditOutlined />}
