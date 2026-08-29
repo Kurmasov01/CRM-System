@@ -8,7 +8,7 @@ import type {
 
 import axios from "axios";
 
-const baseUrl: string = "http://159.194.224.99:8082/api/v1";
+const baseUrl: string = "https://tech-mindset.ru/api/v1";
 
 export async function getTodos(
   activeFilter?: TodoActiveFilter,
