@@ -3,41 +3,57 @@ import TodoList from "@/components/TodoList/TodoList";
 import TodoFilter from "@/components/TodoFilter/TodoFilter";
 import { getTodos } from "@/api/FetchApi";
 import { useState } from "react";
-import type { Todo, TodoInfo, MetaResponse, TodoActiveFilter } from "@/models/Models";
+import type { Todo, TodoInfo, TodoActiveFilter } from "@/models/Models";
 import { useEffect } from "react";
+import Title from "antd/es/typography/Title";
+
+const GET_TODOS_INTERVAL: number = 5000;
 
 function TodoPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [todoInfo, setTodoInfo] = useState<TodoInfo>();
   const [activeFilter, setActiveFilter] = useState<TodoActiveFilter>("all");
+  const [pauseTimer, setPauseTimer] = useState<boolean>(false);
 
   useEffect(() => {
     onGetTodos();
   }, []);
 
+  useEffect(() => {
+    if (pauseTimer) return;
+    const timerId = setInterval(onGetTodos, GET_TODOS_INTERVAL, activeFilter);
+
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [activeFilter, pauseTimer]);
+
   async function onGetTodos(filter?: TodoActiveFilter) {
-    let queryFilter: TodoActiveFilter = filter ? filter : activeFilter;
+    let queryFilter = filter ?? activeFilter;
     try {
-      const resData: MetaResponse<Todo, TodoInfo> = await getTodos(queryFilter);
+      const resData = await getTodos(queryFilter);
       setTodos(resData.data);
-      setTodoInfo(resData.info);
+      setTodoInfo(resData.meta.statusCounts);
     } catch (error) {
       alert("Не удалось загрузить задачи, ошибка: " + error);
     }
   }
 
   return (
-    <section className="layout">
-      <h1>Мои задачи</h1>
+    <>
+      <Title level={1}>Мои задачи</Title>
       <AddTodo updateTodos={onGetTodos} />
       <TodoFilter
-        activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
         updateTodos={onGetTodos}
         todoInfo={todoInfo}
       />
-      <TodoList updateTodos={onGetTodos} todos={todos} />
-    </section>
+      <TodoList
+        updateTodos={onGetTodos}
+        todos={todos}
+        setPauseTimer={setPauseTimer}
+      />
+    </>
   );
 }
 
